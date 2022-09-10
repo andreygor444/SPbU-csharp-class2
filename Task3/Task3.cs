@@ -12,7 +12,7 @@ namespace Task3
 /*
  * Задание 3.1. Проверить, содержит ли заданная строка только цифры?
  */
-        internal static bool AllDigits(string s) => new Regex("WRITE_ME").IsMatch(s);
+        internal static bool AllDigits(string s) => new Regex("\d").IsMatch(s);
 
 /*
  * Задание 3.2. Проверить, содержит ли заданная строка подстроку, состоящую

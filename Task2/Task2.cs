@@ -16,7 +16,16 @@ namespace Task2
  */
         internal static string FillWithAsterisks(string s, int n)
         {
-            throw new NotImplementedException();
+            StringBuilder sb1 = new StringBuilder("*", n);
+            for (int i = 1; i < n; ++i) sb1.Append('*');
+            string s1 = sb1.ToString();
+            StringBuilder sb = new StringBuilder(s, s.Length * (n + 1) - n);
+            for (int i = s.Length - 1; i >= 1; --i)
+            {
+                sb.Insert(i, s1);
+            }
+
+            return sb.ToString();
         }
 
 /*
@@ -32,9 +41,32 @@ namespace Task2
  * а числа во втором -- по правому, причём между числами должен оставаться как минимум один
  * пробел. В решении можно использовать функции Pad*.
  */
+        static int IntLength(int n)
+        {
+            int cnt = 0;
+            while (n > 0)
+            {
+                n /= 10;
+                ++cnt;
+            }
+
+            return cnt;
+        }
         internal static string TabulateSquares(int n)
         {
-            throw new NotImplementedException();
+            int n1 = IntLength(n);
+            int n2 = IntLength(n*n);
+            StringBuilder sb = new StringBuilder((n1 + n2 + 1) * n);
+            for (int i = 1; i <= n; ++i)
+            {
+                sb.Append(i.ToString().PadRight(n1));
+                sb.Append(' ');
+                sb.Append((i * i).ToString().PadLeft(n2));
+                sb.Append('\n');
+            }
+
+            sb.Remove(sb.Length - 1, 1);
+            return sb.ToString();
         }
 
         public static void Main(string[] args)

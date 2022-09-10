@@ -9,7 +9,7 @@
  */
         internal static int StringLength(string s)
         {
-            throw new NotImplementedException();
+            return s.Length;
         }
 
 /*
@@ -20,10 +20,10 @@
         {
             return new Tuple<int?, int?>(Code(First(s)), Code(Last(s)));
         }
-        
-        private static char? First(string s) => throw new NotImplementedException(); 
-        private static char? Last(string s) => throw new NotImplementedException();
-        private static int? Code(char? c) => throw new NotImplementedException();
+
+        private static char? First(string s) => s[0];
+        private static char? Last(string s) => s[s.Length - 1];
+        private static int? Code(char? c) => (int)c;
        
 
 /*
@@ -32,7 +32,13 @@
  */
         internal static int CountDigits(string s)
         {
-            throw new NotImplementedException();
+            int cnt = 0;
+            for (int i = 0; i < s.Length; ++i)
+            {
+                if (s[i] >= '0' && s[i] <= '9') ++cnt;
+            }
+
+            return cnt;
         }
 
 /*
@@ -44,7 +50,7 @@
  */
         internal static int CountDigits2(string s)
         {
-            throw new NotImplementedException();
+            return s.Count((char c) => Char.IsDigit(c));
         }
         
 /*
@@ -52,22 +58,43 @@
  * где на месте знака операции «±» находится символ «+» или «−» (например, «4+7−2−8»). Вывести значение
  * данного выражения (целое число).
  */
-        internal static int CalcDigits(string expr) {
-            throw new NotImplementedException();
+        internal static int CalcDigits(string expr)
+        {
+            int sum = expr[0]-'0';
+            for (int i = 1; i < expr.Length; i += 2)
+            {
+                if (expr[i] == '+')
+                {
+                    sum+=expr[i+1]-'0';
+                }
+                else if (expr[i] == '-')
+                {
+                    sum -= expr[i + 1] - '0';
+                }
+            }
+
+            return sum;
         }
 
 /*
  * Задание 1.6. Даны строки S, S1 и S2. Заменить в строке S первое вхождение строки S1 на строку S2.
  */
-        internal static string ReplaceWithString(string s, string s1, string s2) {
-            throw new NotImplementedException();
+        internal static string ReplaceWithString(string s, string s1, string s2)
+        {
+            int ind = s.IndexOf(s1);
+            if (ind < 0) return s;
+            return s.Substring(0, ind) + s2 + s.Substring(ind + s1.Length);
         }
         
 
         public static void Main(string[] args)
         {
-            throw new NotImplementedException(
-                "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+            StringLength("Hello");
+            FirstLastCodes("Hello");
+            CountDigits("Hello");
+            CountDigits2("Hello");
+            CalcDigits("1+2-3");
+            ReplaceWithString("123", "2", "34");
         }
     }
 }
